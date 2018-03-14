@@ -2,7 +2,7 @@
   <div class="detail">
     <div class="header">
       <i class="iconfont icon-fanhui" @click="back" v-if="back"></i>
-      <i class="iconfont icon-zuqiu"></i> 
+      <i class="iconfont icon-zuqiu"></i>
       天下足球
     </div>
     <iframe :src="url" frameborder="0" name="test" id="dom01" :height="fHeight"></iframe>
@@ -20,7 +20,7 @@ import Sidebar from 'components/sidebar/sidebar'
     computed: {
       url() {
         let id = this.$route.query.id
-        return `http://www.dongqiudi.com/share/article/${id}?id=${id}&type=undefined&refer=m_website`
+        return `http://www.dongqiudi.com/share/article/${id}`
       },
       fHeight() {
         return window.innerHeight
@@ -28,7 +28,7 @@ import Sidebar from 'components/sidebar/sidebar'
     },
     methods: {
       back(){
-        history.back()
+        history.go(-2)
       },
       openSidebar() {
         this.isSidebar = true

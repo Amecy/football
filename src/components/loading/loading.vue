@@ -1,6 +1,6 @@
 <template>
 	<div class="loading">
-		<img :src="loading" alt="正在加载中">
+		<img :src="loading" alt="加载中...">
 	</div>
 </template>
 
@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
-  .loading 
+  .loading
    width: 100%
    height: auto
    padding: 30% 0

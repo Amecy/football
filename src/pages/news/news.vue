@@ -4,18 +4,20 @@
       <div>
         <div v-if="ads.length" class="slider-wrapper" ref="sliderWrapper">
           <slider :interval="2000" :autoPlay="true" :loop="true">
-            <div v-for="item in ads" :key="item.linkUrl">
-              <a :href="item.linkUrl" target="_blank">
+            <div v-for="item in ads" :key="item.picUrl">
+              <!--<a :href="item.linkUrl" target="_blank">-->
                 <!-- 使用css类needsclick，解决fackclick与better-scroll点击事件冲突问题,@load="loadImage"解决轮播图异步加载，scroll无法计算该部分的大小，导致无法滚动到最底部 -->
                 <img class="needsclick" @load="loadImage" :src="item.picUrl">
-              </a>
+              <!--</a>-->
             </div>
           </slider>
         </div>
         <h2>最新资讯</h2>
         <ul class="title">
-          <router-link v-for="item in newsList" :to="{ path: 'detail', query: {id: item.id}}"   tag="li" :key="item.id" :id="item.id">
-            <div class="left"><img v-lazy="item.litpic"></div>
+          <router-link v-for="item in newsList" :to="{ path: 'detail', query: {id: item.id}}" tag="li" :key="item.id" :id="item.id">
+            <div class="left">
+              <img v-lazy="item.litpic">
+            </div>
             <div class="right">
               <h3 v-text="item.title"></h3>
               <p v-text="item.description"></p>
@@ -42,7 +44,7 @@ import {getNews} from 'api/news'
          picUrl: require('common/images/1.jpg')
         },{
          linkUrl: 'https://github.com/Amecy',
-         picUrl: require('common/images/2.jpg') 
+         picUrl: require('common/images/2.jpg')
         },{
          linkUrl: 'https://github.com/Amecy',
          picUrl: require('common/images/3.jpg')
@@ -75,10 +77,8 @@ import {getNews} from 'api/news'
       },
       _getNews(page) {
         getNews(page).then((res) => {
-          console.log(res)
           if(res.statusText === 'OK') {
             this.newsList = this.newsList.concat(res.data.list.articles)
-            this.curPage = res.data.page
           }
         })
       }
@@ -121,7 +121,7 @@ import {getNews} from 'api/news'
         display: flex
         justify-content: center
         align-items: center
-        padding: .5rem 0  
+        padding: .5rem 0
         border-bottom: 1px solid $color-border
         position: relative
         .left
