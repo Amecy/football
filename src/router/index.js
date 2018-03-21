@@ -4,38 +4,54 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 const News = () => import('pages/news/news.vue')
-const Detail = () => import('pages/detail/detail.vue')
+const NewsDetail = () => import('pages/news/detail.vue')
+
 const Race = () => import('pages/race/race.vue')
+const RaceDetail = () => import('pages/race/detail.vue')
+
 const Data = () => import('pages/data/data.vue')
+
 const Video = () => import('pages/video/video.vue')
+const VideoDetail = () => import('pages/video/detail.vue')
 
 const router = new Router({
   // routes配置最好加上name属性，用于参数传递
   routes: [
-   {
+    {
       path: '/',
       redirect: '/news'
     },
     {
       path: '/news',
-      component: News
+      component: News,
     },
     {
-      path: '/detail',
-      component: Detail
+      path: '/news/detail',
+      name: 'NewsDetail',
+      component: NewsDetail
     },
     {
       path: '/race',
       component: Race
     },
     {
+      path: '/race/detail',
+      name: 'RaceDetail',
+      component: RaceDetail
+    },
+    {
       path: '/video',
       component: Video
+    },
+    {
+      path: '/video/detail',
+      component: VideoDetail
     },
     {
       path: '/data',
       component: Data
     },
+
     // 设置404错误页面
     // {
     //    path:'*',

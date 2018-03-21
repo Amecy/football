@@ -1,24 +1,29 @@
 <template>
   <header>
   	<div class="title">
-      <!-- <i class="back" @click="back" v-if="isBack"><</i> -->
-  	  <i class="iconfont icon-zuqiu"></i> 
+      <i class="iconfont icon-fanhui" @click="back" v-if="isBack"></i>
+  	  <i class="iconfont icon-zuqiu"></i>
       天下足球
       <i class="iconfont icon-sidebar" @click="openSidebar" v-show="!isSidebar"></i>
   	</div>
     <!-- <transition name="slide"> -->
       <sidebar :showSidebar="isSidebar" @closeSidebar="closeSidebar"></sidebar>
     <!-- </transition> -->
-  </header>	
+  </header>
 </template>
 
 <script>
 import Sidebar from 'components/sidebar/sidebar'
 export default {
+  props: {
+    isBack: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
-    return{
-      isSidebar: false
-      // isBack: this.$store.state.back
+    return {
+      isSidebar: false,
     }
   },
   methods: {
@@ -27,14 +32,10 @@ export default {
     },
     closeSidebar(){
       this.isSidebar = false
+    },
+    back() {
+      history.back()
     }
-    // back(){
-    //   history.back()
-    // }
-  },
-  mounted() {
-    setTimeout(() => {
-    },20)
   },
   components: {
     Sidebar
@@ -53,12 +54,12 @@ export default {
     color: $color-w
     background: $color-g
     position: relative
-    .back
+    .icon-fanhui
       position: absolute
       top: 0
       left: 0
       font-size: 1.5rem
-      padding: 0 .5rem
+      padding: .8rem
       z-index: 20
       color: #fff
     .icon-sidebar
@@ -69,11 +70,11 @@ export default {
       padding: .6rem .5rem
       z-index: 20
       color: #fff
-         
+
   .slide-enter-active, .slide-leave-active
     transition: all 0.3s ease
 
   .slide-enter, .slide-leave-to
     transform: translate3d(50%, 0, 0)
-    
+
 </style>

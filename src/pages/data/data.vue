@@ -1,11 +1,14 @@
 <template>
   <div class="data">
-    <ul>
-    	<li v-for="(item, index) in leagues" v-text="item.title" :class="curLeaguesIndex===index ? activeClass :''" @click="onCurrentLeague(item, index)"></li>
-    </ul>
-    <ol>
-      <li v-for="(item,index) in types" v-text="item.title" :class="curType===index ? activeClass : ''" @click="onRank(item,index)"></li>
-    </ol>
+    <div class="header">
+
+      <ul>
+        <li v-for="(item, index) in leagues" v-text="item.title" :class="curLeaguesIndex===index ? activeClass :''" @click="onCurrentLeague(item, index)"></li>
+      </ul>
+      <ol>
+        <li v-for="(item,index) in types" v-text="item.title" :class="curType===index ? activeClass : ''" @click="onRank(item,index)"></li>
+      </ol>
+    </div>
     <div class="rank">
       <scroll ref="scroll" class="rank-content" :data="datas">
         <div>

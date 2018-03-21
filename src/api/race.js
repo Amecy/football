@@ -3,13 +3,16 @@ import {formatDate} from 'common/js/util'
 
 // 获取赛事
 export function getRace() {
-	const url = '/data/tab/important'
-	let currentTime = formatDate(new Date(), 1)+' 16:00:00'
+	const url = '/data/tab/new/important'
+	let start = `${formatDate(new Date(), 1)} 16:00:00`
 	return axios.get(url, {
-	  params: {
-		start: currentTime
-	  }
-	}).then((res) => {
-      return Promise.resolve(res)
+	  params: { start }
 	})
+}
+
+
+// 获取赛事详情
+export function getDetail(id, type) {
+  const url = `/mobile/match/${type}/${id}`
+  return axios.get(url)
 }

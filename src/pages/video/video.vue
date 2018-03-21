@@ -4,9 +4,9 @@
       <div>
         <h2>最劲视频</h2>
         <ul>
-          <router-link v-for="(item,index) in videos" :to="{ path: 'detail', query: {id: item.id}}" tag="li" :key="index">
+          <router-link v-for="(item,index) in videos" :to="{ path: 'video/detail', query: {id: item.id}}" tag="li" :key="index">
             <div class="left">
-              <img v-lazy="item.litpic">
+              <img v-lazy="item.thumb">
             </div>
             <div class="right">
               <p>{{item.title}}</p>
@@ -23,26 +23,27 @@
 <script>
   import Scroll from 'components/scroll/scroll'
   import Loading from 'components/loading/loading'
-  import {getVideos} from 'api/video.js'
+  import { getVodeoList } from 'api/video'
   export default {
   	data() {
   		return {
         videos: [],
-        page: 1
+        url: '',
   		}
   	},
     mounted() {
       this.$nextTick(()=>{
-        this._getVideos(this.page)
+        this._getVideos()
         this.$refs.scroll.refresh()
       })
     },
     methods: {
-      _getVideos(page) {
-        getVideos(page).then((res)=>{
-          console.log(res.data.list.articles)
-          if(res.statusText==="OK"){
-            this.videos = [...this.videos, ...res.data.list.articles]  
+      _getVideos() {
+        getVodeoList(this.url).then((res)=>{
+          if("OK" === res.statusText) {
+            const { articles, next } = res.data
+            this.videos = [...this.videos, ...articles]
+            this.url = next
           }
         })
       },
@@ -95,5 +96,6 @@
           span
             position: absolute
             bottom: 0
+            color: $color-dark
             right: .5rem
 </style>

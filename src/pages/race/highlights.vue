@@ -1,0 +1,48 @@
+<template>
+  <div class="situation">
+    <div v-if="data" class="content">
+      <h3>战报</h3>
+      <div class="team-wrap">
+      </div>
+    </div>
+    <div v-else class="empty">
+      暂无相关集锦
+    </div>
+  </div>
+</template>
+
+<script>
+  export default {
+    props: {
+      data: {
+        type: Object,
+        require: true
+      },
+
+      mounted() {
+        console.log('22333',this.data)
+      }
+    }
+  }
+</script>
+
+<style scoped lang="stylus" rel="stylesheet/stylus">
+@import "~common/stylus/variable"
+.situation
+  .empty
+    margin-top: 4rem
+    text-align: center
+    color: $color-dark
+  .content
+    position: relative
+    h3
+      padding: 10px 20px
+      background-color: #e8e8e8
+      font-weight: 700
+    .team-wrap
+      display: flex
+      margin: auto
+      width: 70%
+      justify-content: space-around
+      padding: .5rem 0
+</style>

@@ -24,8 +24,8 @@
   export default {
   	props: {
   	  assist: {
-  		type: Array,
-  		required: true
+        type: Array,
+        required: true
   	  }
   	},
   	mounted() {

@@ -63,11 +63,11 @@
         transform: translate3d(50%, 0, 0)
       .icon-close
         position: absolute
-        top: 10px
+        top: 0
         right: 0
-        z-index: 42
-        padding: .5rem
-        font-size: 1.2rem
+        font-size: 1rem
+        padding: 1.2rem 1rem
+        z-index: 20
         color: #fff
       &:after
         content: 'X'
