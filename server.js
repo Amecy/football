@@ -3,11 +3,11 @@ const proxy = require('http-proxy-middleware');
 
 const app = express();
 app.use('/static', express.static(`${__dirname}/static`));
-app.use('/v1', proxy({
+app.use('/api', proxy({
   target: 'https://www.dongqiudi.com',
   changeOrigin: true,
   pathRewrite: {
-    '^/v1': ''
+    '^/api': ''
   }
 }));
 

@@ -27,12 +27,13 @@ module.exports = {
     autoOpenBrowser: false,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
+    // /api/posts/1  => https://api.dongqiudi.com/posts/1
     proxyTable: {
-        '/v1':{
-            target: 'https://www.dongqiudi.com',
+        '/api':{
+            target: 'https://api.dongqiudi.com',
             changeOrigin: true,
             pathRewrite: {
-                '^/v1': ''
+              '^/api': ''
             }
         }
     },

@@ -5,7 +5,7 @@
 import axios from 'axios'
 // 超时时间
 axios.defaults.timeout = 10000
-axios.defaults.baseURL = '/v1'
+axios.defaults.baseURL = '/api'
 // http请求拦截器
 var loadinginstace
 axios.interceptors.request.use(config => {

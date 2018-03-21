@@ -28,40 +28,40 @@ var app = express()
 
 var apiRoutes = express.Router()
 
-apiRoutes.get('/getNews', function (req, res) {
-  var url = 'http://m.7m.com.cn/news/newsjson/getnews.php'
-  // var url = 'http://wap.haogongyu.com/v131/House/getHouseInfo'
-  // referer: 'http://m.dongqiudi.com/status.html',
-      // host: 'm.dongqiudi.com'
-      // referer: 'http://m.haogongyu.com/',
-      // host: 'wap.haogongyu.com'
-  axios.get(url, {
-    headers: {
-      referer: 'http://m.7m.com.cn/news/article.php?20170723_429891',
-      host: 'm.7m.com.cn'
-    },
-    params: req.query
-  }).then((response) => {
-    res.json(response.data)
-  }).catch((e) => {
-    console.log(e)
-  })
-})
-
-apiRoutes.get('/getDiscList', function (req, res) {
-  var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
-  axios.get(url, {
-    headers: {
-      referer: 'https://c.y.qq.com/',
-      host: 'c.y.qq.com'
-    },
-    params: req.query
-  }).then((response) => {
-    res.json(response.data)
-  }).catch((e) => {
-    console.log(e)
-  })
-})
+// apiRoutes.get('/getNews', function (req, res) {
+//   var url = 'http://m.7m.com.cn/news/newsjson/getnews.php'
+//   // var url = 'http://wap.haogongyu.com/v131/House/getHouseInfo'
+//   // referer: 'http://m.dongqiudi.com/status.html',
+//       // host: 'm.dongqiudi.com'
+//       // referer: 'http://m.haogongyu.com/',
+//       // host: 'wap.haogongyu.com'
+//   axios.get(url, {
+//     headers: {
+//       referer: 'http://m.7m.com.cn/news/article.php?20170723_429891',
+//       host: 'm.7m.com.cn'
+//     },
+//     params: req.query
+//   }).then((response) => {
+//     res.json(response.data)
+//   }).catch((e) => {
+//     console.log(e)
+//   })
+// })
+//
+// apiRoutes.get('/getDiscList', function (req, res) {
+//   var url = 'https://c.y.qq.com/splcloud/fcgi-bin/fcg_get_diss_by_tag.fcg'
+//   axios.get(url, {
+//     headers: {
+//       referer: 'https://c.y.qq.com/',
+//       host: 'c.y.qq.com'
+//     },
+//     params: req.query
+//   }).then((response) => {
+//     res.json(response.data)
+//   }).catch((e) => {
+//     console.log(e)
+//   })
+// })
 
 app.use('/api', apiRoutes)
 
