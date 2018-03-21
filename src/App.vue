@@ -1,11 +1,12 @@
 <template>
   <div id="app">
-    <top></top>
+    <top :isBack="isBack()"></top>
     <tab></tab>
     <transition name="fade">
-      <keep-alive>
+      <!-- keep-alive：缓存已渲染的内容  -->
+      <!--<keep-alive>-->
         <router-view></router-view>
-      </keep-alive>
+      <!--</keep-alive>-->
     </transition>
   </div>
 </template>
@@ -15,11 +16,10 @@ import Top from 'components/top/top'
 import Tab from 'components/tab/tab'
 export default {
   name: 'app',
-  data() {
-    return{
-    }
-  },
   methods: {
+    isBack() {
+      return window.back
+    }
   },
   components: {
     Top,
@@ -31,7 +31,6 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #app
   text-align: center
-  
   .fade-enter-active, .fade-leave-active {
     transition: opacity .2s
   }

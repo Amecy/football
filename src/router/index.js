@@ -46,6 +46,9 @@ const router = new Router({
 
 // 路由拦截
 router.beforeEach((to, from, next) => {
+  // 设置back标志，提供给 top 组件
+  window.back = (to.path.split('/').length > 2) ? true : false
+
   // 没有匹配成功的路由，跳转到index页面,to.matched.length一级路由返回1，二级路由返回2，以此类推
   if (to.matched.length >= 1) {
     next()
