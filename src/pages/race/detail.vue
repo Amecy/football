@@ -6,7 +6,7 @@
         <img class="logo" :src="match.team_A.logo" alt="logo">
         <p>{{match.team_A.name}}</p>
       </div>
-      <div class="item">
+      <div class="item center">
         <p>{{show_time_day}} {{show_time_min}} {{match.competition.short_name}}</p>
         <p class="score" v-if="''===match.status">VS</p>
         <p class="score" v-else>{{match.team_A.score}} - {{match.team_B.score}}</p>
@@ -27,9 +27,10 @@
       </ul>
     </div>
     <div class="content">
-      <situation v-if="0===curType && info" :data="info.statistics"></situation>
-      <lineup v-if="1===curType && info" :data="info.statistics"></lineup>
-      <highlights v-if="3===curType && info" :data="info.statistics"></highlights>
+      <stats v-if="0===curType && info" :data="info"></stats>
+      <lineup v-if="1===curType && info" :data="info"></lineup>
+      <analysis v-if="2===curType && info" :data="info"></analysis>
+      <highlights v-if="3===curType && info" :data="info"></highlights>
     </div>
     <loading v-if="loading"></loading>
   </div>
@@ -37,7 +38,8 @@
 
 <script>
   import Loading from 'components/loading/loading'
-  import Situation from 'pages/race/situation'
+  import Stats from 'pages/race/stats'
+  import Analysis from 'pages/race/analysis'
   import Lineup from 'pages/race/lineup'
   import Highlights from 'pages/race/highlights'
   import { getDetail } from 'api/race'
@@ -47,8 +49,10 @@
   	data() {
   		return {
         loading: true,
-        curType: 0,
-  			type: 'situation',
+        curType: 2,
+  			typeArray: ['situation', 'lineup', 'analysis', 'highlights'],
+
+
         info: null,
         match: null,
         show_time_day: '',
@@ -56,40 +60,59 @@
   		}
   	},
   	mounted() {
-      setTimeout(() => {
-      },20)
-      this.__getDetail()
+      const { id } = this.$route.query
+      const type = this.typeArray[this.curType]
+//      this.__getDetail(0, 'situation')
+      this.__getDetail(id, type)
     },
   	methods: {
-      __getDetail() {
-        const { id } = this.$route.query
-        getDetail(id, this.type).then(res => {
-          const { info, match, show_time_day, show_time_min } = res.data
-          const statusMap = {
-            "Played": "已结束",
-            "Fixture": "",
-          }
-
-          this.loading = false
-          this.info = info
-          this.show_time_day = show_time_day
-          this.show_time_min = show_time_min
-          this.match = {
-            ...match,
-            status: statusMap[match.status]
-          }
-        })
-      },
       selectType(e) {
         const { idx } = e.target.dataset
         this.curType = parseInt(idx)
-      }
+      },
+
+  	  __getDetail(id, type) {
+        getDetail(id, type).then(res => {
+          this.loading = false
+          switch (this.curType) {
+            case 0:
+              return this.initStats(res)
+            case 1:
+              return this.initLineup(res)
+            case 2:
+              return this.initAnalysis(res)
+            case 3:
+              return this.initHighlights(res)
+          }
+        })
+      },
+      initStats(res) {
+        console.log(res)
+      },
+      initLineup(res) {},
+      initAnalysis(res) {
+        const { info, match, show_time_day, show_time_min } = res.data
+        const statusMap = {
+          "Played": "已结束",
+          "Fixture": "",
+        }
+        this.info = info
+        this.show_time_day = show_time_day
+        this.show_time_min = show_time_min
+        this.match = {
+          ...match,
+          status: statusMap[match.status]
+        }
+        console.log(info)
+      },
+      initHighlights(res) {},
   	},
   	components: {
   	  Loading,
-      Situation,
+      Stats,
       Lineup,
-      Highlights
+      Analysis,
+      Highlights,
   	}
   }
 </script>
@@ -97,7 +120,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 @import "~common/stylus/variable"
 .race-detail
-  position: fixed
+  position: absolute
   width: 100%
   top: 6rem
   bottom: 0
@@ -109,6 +132,8 @@
     background-size cover
     color: #fff
     font-size .8rem
+    .center
+      margin-top: 10px
     .item
       flex: 1
       .logo

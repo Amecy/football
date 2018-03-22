@@ -20,3 +20,20 @@ extend-click()
     left: -10px
     right: -10px
     bottom: -10px
+
+// alter包裹
+after-wrap($color, $bg)
+  position: relative
+  color: $color
+  &:after
+    content ''
+    display block
+    position absolute
+    width: 60%
+    height: 1.2rem
+    top: 50%
+    left: 50%
+    transform translate(-50%, -50%)
+    z-index -1
+    border-radius 2px
+    background-color: $bg

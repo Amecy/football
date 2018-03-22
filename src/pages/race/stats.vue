@@ -20,10 +20,6 @@
         type: Object,
         require: true
       },
-
-      mounted() {
-        console.log('22333',this.data)
-      }
     }
   }
 </script>
@@ -31,6 +27,7 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 @import "~common/stylus/variable"
 .situation
+  text-align left
   .empty
     margin-top: 4rem
     text-align: center
@@ -39,7 +36,7 @@
     position: relative
     h3
       padding: 10px 20px
-      background-color: #e8e8e8
+      background-color: $color-lightgray
       font-weight: 700
     .team-wrap
       display: flex

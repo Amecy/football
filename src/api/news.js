@@ -6,7 +6,7 @@ var qs = require('qs')
 
 // 获取最新资讯列表
 export function getNews(curPage) {
-  let extra = curPage===1 ? '' : `?page=${curPage}`
+  let extra = curPage === 1 ? '' : `?page=${curPage}`
   let url = '/mobile/tab/1/archives' + extra
   return axios.get(url)
 }
