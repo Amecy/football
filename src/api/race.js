@@ -4,7 +4,7 @@ import {formatDate} from 'common/js/util'
 // 获取赛事
 export function getRace() {
 	const url = '/data/tab/new/important'
-	let start = `${formatDate(new Date(), 1)} 16:00:00`
+	let start = `${formatDate(new Date(), 3)} 16:00:00`
 	return axios.get(url, {
 	  params: { start }
 	})

@@ -127,6 +127,10 @@
 <style scoped lang="stylus" rel="stylesheet/stylus">
 @import "~common/stylus/variable"
 .data
+  position: absolute
+  width: 100%
+  top: 6rem
+  bottom: 0
   ul
   	display: flex
   	font-size: 1rem
@@ -139,24 +143,21 @@
       box-sizing: border-box
     .on
       border-bottom: 1px solid $color-g
-  ol 
+  ol
     display:flex
     background: #3c3b3b
     font-size: 1rem
     color: #ffffff
     box-sizing: border-box
     li
-      flex: 1 
+      flex: 1
       height: 2.5rem
-      line-height: 2.5rem 
+      line-height: 2.5rem
       box-sizing: border-box
     .on
       border-bottom: 1px solid $color-g
   .rank
-    position: fixed
     width: 100%
-    top: 11rem
-    bottom: 0
     .rank-content
       height: 100%
       overflow: hidden

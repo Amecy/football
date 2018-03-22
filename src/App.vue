@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <top :isBack="isBack()"></top>
-    <tab></tab>
+    <div class="wrap">
+      <top :isBack="isBack()"></top>
+      <tab></tab>
+    </div>
     <transition name="fade">
       <!-- keep-alive：缓存已渲染的内容  -->
       <!--<keep-alive>-->
@@ -31,6 +33,13 @@ export default {
 <style scoped lang="stylus" rel="stylesheet/stylus">
 #app
   text-align: center
+  .wrap
+    position: fixed
+    top: 0
+    left: 0
+    width: 100%
+    z-index: 999;
+    background: #fff;
   .fade-enter-active, .fade-leave-active {
     transition: opacity .2s
   }

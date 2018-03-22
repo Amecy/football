@@ -19,8 +19,9 @@ export default {
   .loading
    width: 100%
    height: auto
-   padding: 30% 0
+   padding: 20% 0
    img
-   	width: 2rem
-   	height: 2rem
+     width: auto;
+     height: 8rem;
+     opacity: 0.8;
 </style>

@@ -16,7 +16,7 @@
             <p>{{o.name}}</p>
             <span>{{o.created_at}}</span>
           </div>
-          <div class="up">{{o.up}} 👍</div>
+          <div class="up">{{o.up}}赞️</div>
         </div>
         <p v-html="o.content"></p>
       </div>
@@ -81,6 +81,10 @@ import { getInfo, getCommend } from 'api/news'
 <style lang="stylus" rel="stylesheet/stylus">
 @import "~common/stylus/variable"
 .news-detail
+  position: absolute
+  width: 100%
+  top: 6rem
+  bottom: 0
   article
     padding: 1rem
     text-align left
@@ -121,6 +125,7 @@ import { getInfo, getCommend } from 'api/news'
     padding: 2rem 0
     color: $color-gray
     text-align center
+    font-weight: 300
   .comments
     text-align left
     font-weight 700
@@ -134,6 +139,9 @@ import { getInfo, getCommend } from 'api/news'
       border-bottom 1px solid $color-border
       &:last-child
         border none
+      img
+        height: 1.3rem
+        vertical-align text-top
       .top
         display: flex
         position: relative
@@ -160,4 +168,5 @@ import { getInfo, getCommend } from 'api/news'
         top: 0
         color $color-gray
         font-weight 300
+        font-size .8rem
 </style>

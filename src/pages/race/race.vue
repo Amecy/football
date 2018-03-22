@@ -2,9 +2,8 @@
   <div class="race">
     <scroll ref="scroll" class="race-content" :data="races">
 	    <div>
-	      <h2>最火比赛</h2>
 		    <div class="time-panel" v-for="itemAll in races">
-		        <h3 v-text="itemAll.title"></h3>
+		      <h3 v-text="itemAll.title"></h3>
 		    	<router-link :to="{path: 'race/detail', query: {id: item.relate_id}}" class="row" v-for="(item,index) in itemAll.item" :key="index">
 		    		<div class="team">
 		    			<div><img v-lazy="item.team_A_logo" alt="logo"></div>
@@ -16,8 +15,9 @@
                 <span v-if="item.gameweek" v-text="'第'+item.gameweek+'轮'"></span>
               </p>
 		    			<p v-text="item.TVList"></p>
-		    			<h4 v-text="item.fs_A+' - '+item.fs_B"  v-if="item.fs_B || item.fs_A"></h4>
+		    			<h4 v-if="item.fs_B || item.fs_A">{{item.fs_A}} - {{item.fs_B}}</h4>
 		    			<h4 v-else>未开始</h4>
+              <small v-if="'Played' === item.status">已结束</small>
 		    		</div>
 		    		<div class="team">
 		    			<div><img v-lazy="item.team_B_logo" alt=""></div>
@@ -108,7 +108,7 @@
     h3
       padding: .4rem 0
       font-size: .8rem
-      background: #e6e6e6
+      background: $color-lightgray
       text-align: left
       text-indent: 1rem
     .row
@@ -116,6 +116,8 @@
       justify-content: center
       align-items: center
       border-bottom: 1px solid $color-border
+      &:last-child
+        border none
       .team
       	flex: 2
       	padding: .8rem 0
@@ -133,4 +135,7 @@
       	 font-size: .8rem
       	 line-height: 1.5rem
       	 color: $color-g
+      small
+        font-size .8rem
+        color: $color-gray
 </style>

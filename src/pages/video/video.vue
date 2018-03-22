@@ -2,7 +2,7 @@
   <div class="video">
     <scroll ref="scroll" class="video-content" :data="videos" :pullup="true" v-on:scrollToEnd="_getMoreData">
       <div>
-        <h2>最劲视频</h2>
+        <h2>热门视频</h2>
         <ul>
           <router-link v-for="(item,index) in videos" :to="{ path: 'video/detail', query: {id: item.id}}" tag="li" :key="index">
             <div class="left">

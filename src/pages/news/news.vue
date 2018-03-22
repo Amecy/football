@@ -27,8 +27,8 @@
           </router-link>
         </ul>
       </div>
-      <loading v-show="!newsList.length"></loading>
     </scroll>
+    <loading v-show="!newsList.length"></loading>
   </div>
 </template>
 
@@ -121,6 +121,7 @@ import {getNews} from 'api/news'
           img
             width: auto
             height: 5rem
+            max-width: 6.7rem
         .right
           flex: 5
           padding: 0 .5rem
@@ -128,6 +129,7 @@ import {getNews} from 'api/news'
           h3
             font-size: 1rem
             line-height: 1.5rem
+            margin-bottom: .2rem
           p
             font-size: .6rem
             line-height: 1rem
