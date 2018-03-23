@@ -24,6 +24,7 @@ const router = new Router({
     {
       path: '/news',
       component: News,
+      meta: { keepAlive: true }
     },
     {
       path: '/news/detail',
@@ -32,7 +33,8 @@ const router = new Router({
     },
     {
       path: '/race',
-      component: Race
+      component: Race,
+      meta: { keepAlive: true }
     },
     {
       path: '/race/detail',
@@ -41,7 +43,8 @@ const router = new Router({
     },
     {
       path: '/video',
-      component: Video
+      component: Video,
+      meta: { keepAlive: true }
     },
     {
       path: '/video/detail',
@@ -49,7 +52,8 @@ const router = new Router({
     },
     {
       path: '/data',
-      component: Data
+      component: Data,
+      meta: { keepAlive: true }
     },
 
     // 设置404错误页面

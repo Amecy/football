@@ -17,9 +17,14 @@ export default {
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
   .loading
-   width: 100%
-   height: auto
-   padding: 20% 0
+    position: fixed
+    top: 0
+    width: 100%
+    height: 100%
+    z-index: 500
+    display: flex
+    align-items: center
+    justify-content: center
    img
      width: auto;
      height: 8rem;

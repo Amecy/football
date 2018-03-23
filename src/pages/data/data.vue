@@ -1,7 +1,6 @@
 <template>
   <div class="data">
     <div class="header">
-
       <ul>
         <li v-for="(item, index) in leagues" v-text="item.title" :class="curLeaguesIndex===index ? activeClass :''" @click="onCurrentLeague(item, index)"></li>
       </ul>
@@ -141,8 +140,9 @@
       height: 2.5rem
       line-height: 2.5rem
       box-sizing: border-box
+      transition all .2s ease
     .on
-      border-bottom: 1px solid $color-g
+      border-bottom: 3px solid $color-g
   ol
     display:flex
     background: #3c3b3b
@@ -154,8 +154,9 @@
       height: 2.5rem
       line-height: 2.5rem
       box-sizing: border-box
+      transition all .2s ease
     .on
-      border-bottom: 1px solid $color-g
+      color $color-blue
   .rank
     width: 100%
     .rank-content

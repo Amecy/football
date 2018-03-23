@@ -4,11 +4,11 @@
       <i class="iconfont icon-fanhui" @click="back" v-if="isBack"></i>
   	  <i class="iconfont icon-zuqiu"></i>
       天下足球
-      <i class="iconfont icon-sidebar" @click="openSidebar" v-show="!isSidebar"></i>
+      <i class="iconfont icon-sidebar" @click="openSidebar" v-show="!visible"></i>
   	</div>
-    <!-- <transition name="slide"> -->
-      <sidebar :showSidebar="isSidebar" @closeSidebar="closeSidebar"></sidebar>
-    <!-- </transition> -->
+     <transition name="slide">
+      <sidebar :visible="visible" @close="closeSidebar"></sidebar>
+     </transition>
   </header>
 </template>
 
@@ -23,15 +23,15 @@ export default {
   },
   data() {
     return {
-      isSidebar: false,
+      visible: false,
     }
   },
   methods: {
     openSidebar() {
-      this.isSidebar = true
+      this.visible = true
     },
-    closeSidebar(){
-      this.isSidebar = false
+    closeSidebar() {
+      this.visible = false
     },
     back() {
       history.back()

@@ -1,6 +1,6 @@
 <template>
   <div class="race">
-    <scroll ref="scroll" class="race-content" :data="races">
+    <scroll ref="scroll" class="race-content" :pulldown="true" :data="races" v-on:pulldown="reload">
 	    <div>
 		    <div class="time-panel" v-for="itemAll in races">
 		      <h3 v-text="itemAll.title"></h3>
@@ -44,37 +44,43 @@
   		}
   	},
   	created() {
-      getRace().then((res) => {
-        if(res.statusText === 'OK'){
-          // 声明一个不受data监控的全局变量
-          this.obj = {}
-          res.data.list.forEach((item,index) => {
-            let timeArr = item.time_utc.split(':')
-            //计算+8小时的毫秒数
-            let timeMs = parseInt(timeArr[0])*60*60 + parseInt(timeArr[1])*60 + parseInt(timeArr[2]) + 28800
-            if(item.relate_type === 'program'){
-              return false
-            }else if(timeMs < 86400){
-              let key = item.date_utc
-              this.getFilterData(key)
-              item.time_utc = getLocalHour(item.time_utc)
-              this.obj[key].item.push(item)
-            }else{
-              let key = formatTimes((item.sort_timestamp+28800)*1000,'yyyy-MM-dd')
-              this.getFilterData(key)
-              item.time_utc = getLocalHour(item.time_utc)
-              this.obj[key].item.push(item)
-            }
-          })
-          // 将对象变为数组
-          for(let i in this.obj){
-            this.races.push(this.obj[i])
-          }
-          console.log(this.races)
-        }
-      })
+      this.__getRace()
   	},
   	methods: {
+  	  reload() {
+  	    this.races = []
+  	    this.__getRace()
+      },
+  	  __getRace() {
+        getRace().then((res) => {
+          if(res.statusText === 'OK'){
+            // 声明一个不受data监控的全局变量
+            this.obj = {}
+            res.data.list.forEach((item,index) => {
+              let timeArr = item.time_utc.split(':')
+              //计算+8小时的毫秒数
+              let timeMs = parseInt(timeArr[0])*60*60 + parseInt(timeArr[1])*60 + parseInt(timeArr[2]) + 28800
+              if(item.relate_type === 'program'){
+                return false
+              }else if(timeMs < 86400){
+                let key = item.date_utc
+                this.getFilterData(key)
+                item.time_utc = getLocalHour(item.time_utc)
+                this.obj[key].item.push(item)
+              }else{
+                let key = formatTimes((item.sort_timestamp+28800)*1000,'yyyy-MM-dd')
+                this.getFilterData(key)
+                item.time_utc = getLocalHour(item.time_utc)
+                this.obj[key].item.push(item)
+              }
+            })
+            // 将对象变为数组
+            for(let i in this.obj){
+              this.races.push(this.obj[i])
+            }
+          }
+        })
+      },
   	  getFilterData(key) {
         if(!this.obj[key]){
           this.obj[key] = {

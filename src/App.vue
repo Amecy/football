@@ -6,10 +6,12 @@
     </div>
     <transition name="fade">
       <!-- keep-alive：缓存已渲染的内容  -->
-      <!--<keep-alive>-->
-        <router-view></router-view>
-      <!--</keep-alive>-->
+      <keep-alive>
+        <router-view v-if="$route.meta.keepAlive"></router-view>
+      </keep-alive>
     </transition>
+    <!-- 不缓存结果的路由 -->
+    <router-view v-if="!$route.meta.keepAlive"></router-view>
   </div>
 </template>
 

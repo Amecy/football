@@ -1,7 +1,7 @@
 <template>
-  <div class="sidebar" v-show="showSidebar">
+  <div class="sidebar" v-show="visible">
     <transition name="slide">
-      <div class="wrapper" v-show="showSidebar">
+      <div class="wrapper" v-show="visible">
         <i class="iconfont icon-close" @click="close"></i>
         <div class="top">
           <img src="../../common/images/avatar.jpg">
@@ -10,32 +10,29 @@
           <p>Amecy</p>
           <h3>天下足球<br /> 不专业、不权威</h3>
         </div>
-        <div class="code">
-          <!--<img src="../../common/images/code.jpg" alt="">-->
-        </div>
       </div>
       </transition>
     <div class="mask" @click.stop="close"></div>
   </div>
 </template>
-
 <script>
+
 // 动画效果如果是组件内要搭配v-show，如果是在引用的组件包裹的transition则需要用v-if
 // css动画的样式要写在transition标签里面的第一个元素下面
-  export default {
-    props: {
-      showSidebar: {
-        type: Boolean,
-        required: true,
-        default: false
-      }
-    },
-    methods: {
-      close() {
-        this.$emit('closeSidebar')
-      }
+export default {
+  props: {
+    visible: {
+      type: Boolean,
+      required: true,
+      default: false
+    }
+  },
+  methods: {
+    close() {
+      this.$emit('close')
     }
   }
+}
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
@@ -57,11 +54,13 @@
       z-index: 40
       background: rgba(0,0,0,0.8)
       color: #16b13a
+
       &.slide-enter-active, &.slide-leave-active
-        transition: all 0.3s ease
+        transition: all .2s cubic-bezier(0, 0, 0.3, 1)
       &.slide-enter, &.slide-leave-to
-        transform: translate3d(50%, 0, 0)
-      .icon-close
+        transform: translateX(50%)
+        opacity: 0;
+  .icon-close
         position: absolute
         top: 0
         right: 0
@@ -94,9 +93,4 @@
           color: rgba(244,210,32,1)
           font-size: 1.2rem
           line-height: 1.4rem
-      .code
-        margin: 0 auto
-        padding: 12% 10%
-        img
-          width: 100%
 </style>
