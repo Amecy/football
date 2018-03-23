@@ -1,6 +1,56 @@
 <template>
   <div class="situation">
-    <div v-if="data.battle_history" class="item">
+    <div v-if="data.asia_companys || data.euro_companys" class="item">
+      <h3>盘口指数</h3>
+      <div class="item-wrap no-padding">
+        <table v-if="data.asia_companys">
+          <thead>
+            <tr class="tr-gray">
+              <th width="24%">亚盘</th>
+              <th width="13%">类型</th>
+              <th width="13%">主陪</th>
+              <th width="13%">让球</th>
+              <th width="13%">客陪</th>
+              <th width="24%">变化时间</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(o, idx) in data.asia_companys" :class="o.color">
+              <td>{{o.name}}</td>
+              <td>及时</td>
+              <td>{{o.now.homeWin}}</td>
+              <td>{{o.now.draw}}</td>
+              <td>{{o.now.awayWin}}</td>
+              <td>{{o.now.ts}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <table v-if="data.euro_companys">
+          <thead>
+          <tr class="tr-gray">
+            <th width="24%">欧陪</th>
+            <th width="13%">类型</th>
+            <th width="13%">主陪</th>
+            <th width="13%">让球</th>
+            <th width="13%">客陪</th>
+            <th width="24%">变化时间</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(o, idx) in data.euro_companys" :class="o.color">
+            <td>{{o.name}}</td>
+            <td>及时</td>
+            <td>{{o.now.homeWin}}</td>
+            <td>{{o.now.draw}}</td>
+            <td>{{o.now.awayWin}}</td>
+            <td>{{o.now.ts}}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- 对赛往绩 -->
+    <div v-if="data.battle_history && data.battle_history.list.length > 0" class="item">
       <h3>{{data.battle_history.name}}</h3>
       <div class="item-wrap">
         <div class="team-name">
@@ -36,6 +86,7 @@
       </table>
     </div>
 
+    <!-- 最近战绩 -->
     <div v-if="data.recent_record" class="item">
       <h3>{{data.recent_record.name}}</h3>
       <!-- team_A -->
@@ -157,6 +208,14 @@
           padding-right .625rem;
           text-align right
           background-color: $color-blue
+    .no-padding
+      padding: 0
+      tr
+        border none
+        th
+          color: $color-dark
+        td
+          padding: .6rem
     .title
       display: flex
       align-items center
@@ -170,6 +229,8 @@
   table
     width: 100%
     font-size .8rem
+    .tr-gray
+      background-color: $color-border
     tr
       border-top: 1px solid #e8e8e8
       th

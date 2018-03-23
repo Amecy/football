@@ -38,18 +38,19 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+@import "~common/stylus/variable"
 .schedule
   h3
   	text-align: left
   p
   	text-align: left
   dl
-  	background: #e2e2e2
+  	background: $color-lightgray
   	font-size: 1rem
 	dt 
     display: flex 
     padding: .5rem 0 
-    border-bottom: 1px solid #d0cece
+    border-bottom: 1px solid #dadada
 	  .type1
 	  	flex: 4
 	  	text-align: center
@@ -57,17 +58,17 @@
 	  	flex: 2
 	dd
 	  display: flex
-	  border-bottom: 1px solid #d0cece
+	  border-bottom: 1px solid $color-border
 	  padding: 1.6rem 0
 	  font-size: 1rem
-	  .type1 
+	  .type1
       position: relative 
       flex: 4
       text-align: center
 	  	img
 	  	  width: 1.4rem
 	  	  position: absolute
-	  	  top: 0
+	  	  top: -0.2rem
 	  	  left: .8rem
 	  .type3
 	  	flex: 2

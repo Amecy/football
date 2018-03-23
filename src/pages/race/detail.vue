@@ -18,14 +18,13 @@
       </div>
     </div>
     <!-- 赛程导航 -->
-    <div class="nav">
-      <ul @click="selectType">
-        <li :class="{ active: curType === 0 }" data-idx="0">赛况</li>
-        <li :class="{ active: curType === 1 }" data-idx="1">阵容</li>
-        <li :class="{ active: curType === 2 }" data-idx="2">分析</li>
-        <li :class="{ active: curType === 3 }" data-idx="3">集锦</li>
-      </ul>
-    </div>
+    <ul @click="selectType">
+      <li :class="{ active: curType === 0 }" data-idx="0">赛况</li>
+      <li :class="{ active: curType === 1 }" data-idx="1">阵容</li>
+      <li :class="{ active: curType === 2 }" data-idx="2">分析</li>
+      <li :class="{ active: curType === 3 }" data-idx="3">集锦</li>
+    </ul>
+
     <div class="content">
       <stats v-if="0===curType && info" :data="info"></stats>
       <lineup v-if="1===curType && info" :data="info"></lineup>
@@ -49,7 +48,7 @@
   	data() {
   		return {
         loading: true,
-        curType: 2,
+        curType: 0,
   			typeArray: ['situation', 'lineup', 'analysis', 'highlights'],
 
 
@@ -60,52 +59,39 @@
   		}
   	},
   	mounted() {
-      const { id } = this.$route.query
-      const type = this.typeArray[this.curType]
-//      this.__getDetail(0, 'situation')
-      this.__getDetail(id, type)
+      this.__getDetail()
     },
   	methods: {
       selectType(e) {
         const { idx } = e.target.dataset
         this.curType = parseInt(idx)
+        this.__getDetail()
       },
 
-  	  __getDetail(id, type) {
+  	  __getDetail() {
+        const { id } = this.$route.query
+        const type = this.typeArray[this.curType]
+
+        this.loading = true
+        this.info = null
+
         getDetail(id, type).then(res => {
           this.loading = false
-          switch (this.curType) {
-            case 0:
-              return this.initStats(res)
-            case 1:
-              return this.initLineup(res)
-            case 2:
-              return this.initAnalysis(res)
-            case 3:
-              return this.initHighlights(res)
+          const { info, match, show_time_day, show_time_min } = res.data
+          const statusMap = {
+            "Played": "已结束",
+            "Fixture": "",
+          }
+          let len = info.length
+          this.info = 0 ===len ? {} : info
+          this.show_time_day = show_time_day
+          this.show_time_min = show_time_min
+          this.match = {
+            ...match,
+            status: statusMap[match.status]
           }
         })
       },
-      initStats(res) {
-        console.log(res)
-      },
-      initLineup(res) {},
-      initAnalysis(res) {
-        const { info, match, show_time_day, show_time_min } = res.data
-        const statusMap = {
-          "Played": "已结束",
-          "Fixture": "",
-        }
-        this.info = info
-        this.show_time_day = show_time_day
-        this.show_time_min = show_time_min
-        this.match = {
-          ...match,
-          status: statusMap[match.status]
-        }
-        console.log(info)
-      },
-      initHighlights(res) {},
   	},
   	components: {
   	  Loading,
@@ -143,15 +129,13 @@
       .score
         margin: 10px 0
         font-size 1.6rem
-  .nav
-
   ul
     display: flex
     justify-content: center
     width: 100%
     height: 2.8rem
     line-height: 2.8rem
-    font-size: 1.1rem
+    font-size: 1rem
     li
       flex: 1
     .active::after
@@ -160,7 +144,8 @@
       width: 60%
       margin auto
       height: 2px
-      margin-top: -2px
+      margin-top: -1px
       background-color: $color-g
+
 
 </style>

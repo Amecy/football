@@ -26,11 +26,11 @@
 <script>
   import Loading from 'components/loading/loading'
   import Scroll from 'components/scroll/scroll'
-  import Score from 'pages/rank/score'
-  import Shooter from 'pages/rank/shooter'
-  import Assist from 'pages/rank/assist'
-  import Schedule from 'pages/rank/schedule'
-  import {getRank} from 'api/rank'
+  import Score from 'pages/data/score'
+  import Shooter from 'pages/data/shooter'
+  import Assist from 'pages/data/assist'
+  import Schedule from 'pages/data/schedule'
+  import {getRank} from 'api/data'
   export default {
     data() {
       return {
@@ -134,7 +134,7 @@
   ul
   	display: flex
   	font-size: 1rem
-  	background: #eee
+  	background: $color-lightgray
   	color: $color-g
   	li
       flex: 1

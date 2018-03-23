@@ -37,17 +37,18 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+@import "~common/stylus/variable"
 .assist
   h3
   	text-align: left
   p
   	text-align: left
   dl
-  	background: #e2e2e2
+  	background: $color-lightgray
   	font-size: 1rem
 	dt 
     display: flex 
-    border-bottom: 1px solid #d0cece 
+    border-bottom: 1px solid #dadada
     padding: .5rem 0
 	  .type1
 	  	flex: 4
@@ -56,7 +57,7 @@
 	  	flex: 2
 	dd
 	  display: flex
-	  border-bottom: 1px solid #d0cece
+	  border-bottom: 1px solid $color-border
 	  padding: 1rem 0
 	  font-size: 1rem
 	  position: relative
@@ -66,7 +67,7 @@
 	  	img
 	  	  width: 1.4rem
 	  	  position: absolute
-	  	  top: 1rem
+	  	  top: 0.8rem
 	  	  left: 3.5rem
 	  .type3
 	  	flex: 2

@@ -30,11 +30,6 @@
 
 <script>
   export default {
-  	date() {
-  		return {
-  		   
-  		}
-  	},
   	props: {
   	  score: {
   		type: Array,
@@ -50,18 +45,19 @@
 </script>
 
 <style scoped lang="stylus" rel="stylesheet/stylus">
+@import "~common/stylus/variable"
 .score
   h3
   	text-align: left
   p
   	text-align: left
   dl
-  	background: #e2e2e2
+  	background: $color-lightgray
   	font-siez: 1rem
 	dt 
     display: flex 
     padding: .5rem 0 
-    border-bottom: 1px solid #d0cece
+    border-bottom: 1px solid #dadada
 	  .type0
 	  	flex: 1
 	  	text-align:left
@@ -73,7 +69,7 @@
 	  	flex: 2
 	dd
 	  display: flex
-	  border-bottom: 1px solid #d0cece
+	  border-bottom: 1px solid $color-border
 	  padding: 1.2rem 0
 	  font-size: 1rem
 	  position: relative
