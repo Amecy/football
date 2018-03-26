@@ -1,7 +1,10 @@
 <template>
   <div class="news">
-    <scroll ref="scroll" class="news-content" :data="newsList" :pullup="true" :pulldown="true" v-on:pulldown="reload" v-on:scrollToEnd="_getMoreData">
+    <scroll ref="scroll" class="news-content" :data="newsList"
+            :pullup="true" :pulldown="true" :listenScroll="true"
+            v-on:pulldown="reload" v-on:scrollToEnd="_getMoreData" v-on:scroll="scroll">
       <div>
+        <tip :changeTip="changeTip"></tip>
         <div v-if="ads.length" class="slider-wrapper" ref="sliderWrapper">
           <slider :interval="2000" :autoPlay="true" :loop="true">
             <div v-for="item in ads" :key="item.picUrl">
@@ -33,10 +36,11 @@
 </template>
 
 <script>
+import Tip from 'components/tip/tip'
 import Slider from 'components/slider/slider'
 import Scroll from 'components/scroll/scroll'
 import Loading from 'components/loading/loading'
-import {getNews} from 'api/news'
+import { getNews } from 'api/news'
   export default {
   	data() {
   		return {
@@ -55,6 +59,7 @@ import {getNews} from 'api/news'
         }],
         curPage: 1, // 当前页
         newsList: [],
+        changeTip: false,
         loading: false
   		}
   	},
@@ -74,12 +79,16 @@ import {getNews} from 'api/news'
           this.loading = true
         }
         getNews(page).then((res) => {
+          this.changeTip = false
           if(res.statusText === 'OK') {
             this.loading = false
             this.curPage += 1
             this.newsList = this.newsList.concat(res.data.list.articles)
           }
         })
+      },
+      scroll(pos) {
+        this.changeTip = pos.y > 50
       }
   	},
   	computed: {
@@ -91,7 +100,8 @@ import {getNews} from 'api/news'
     components: {
       Slider,
       Scroll,
-      Loading
+      Loading,
+      Tip
     }
   }
 </script>
@@ -101,7 +111,7 @@ import {getNews} from 'api/news'
 .news
   position: fixed
   width: 100%
-  top: 6rem
+  top: 0
   bottom: 0
   .news-content
     height: 100%

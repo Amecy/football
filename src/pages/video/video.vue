@@ -1,7 +1,10 @@
 <template>
   <div class="video">
-    <scroll ref="scroll" class="video-content" :data="videos" :pullup="true" :pulldown="true" v-on:scrollToEnd="_getMoreData" v-on:pulldown="reload">
+    <scroll ref="scroll" class="video-content" :data="videos"
+            :pullup="true" :pulldown="true" :listenScroll="true"
+            v-on:scrollToEnd="_getMoreData" v-on:pulldown="reload" v-on:scroll="scroll">
       <div>
+        <tip :changeTip="changeTip"></tip>
         <h2>热门视频</h2>
         <ul>
           <router-link v-for="(item,index) in videos" :to="{ path: 'video/detail', query: {id: item.id}}" tag="li" :key="index">
@@ -22,6 +25,7 @@
 </template>
 
 <script>
+  import Tip from 'components/tip/tip'
   import Scroll from 'components/scroll/scroll'
   import Loading from 'components/loading/loading'
   import { getVodeoList } from 'api/video'
@@ -29,6 +33,7 @@
   	data() {
   		return {
   		  loading: false,
+        changeTip: false,
         videos: [],
         url: '',
   		}
@@ -50,6 +55,7 @@
         }
         getVodeoList(this.url).then((res)=>{
           this.loading = false
+          this.changeTip = false
           if("OK" === res.statusText) {
             const { articles, next } = res.data
             this.videos = [...this.videos, ...articles]
@@ -60,11 +66,15 @@
       _getMoreData(){
         this._getVideos(++this.page)
         this.$refs.scroll.refresh()
+      },
+      scroll(pos) {
+        this.changeTip = pos.y > 50
       }
     },
     components: {
       Scroll,
-      Loading
+      Loading,
+      Tip
     }
   }
 </script>
@@ -74,7 +84,7 @@
   .video
     position: fixed
     width: 100%
-    top: 6rem
+    top: 0
     bottom: 0
     .video-content
       height: 100%

@@ -1,7 +1,8 @@
 <template>
   <div class="race">
-    <scroll ref="scroll" class="race-content" :pulldown="true" :data="races" v-on:pulldown="reload">
+    <scroll ref="scroll" class="race-content" :pulldown="true" :listenScroll="true" :data="races" v-on:pulldown="reload" v-on:scroll="scroll">
 	    <div>
+        <tip :changeTip="changeTip"></tip>
 		    <div class="time-panel" v-for="itemAll in races">
 		      <h3 v-text="itemAll.title"></h3>
 		    	<router-link :to="{path: 'race/detail', query: {id: item.relate_id}}" class="row" v-for="(item,index) in itemAll.item" :key="index">
@@ -35,12 +36,14 @@
 <script>
   import Loading from 'components/loading/loading'
   import Scroll from 'components/scroll/scroll'
+  import Tip from 'components/tip/tip'
   import { getRace } from 'api/race'
   import { formatTimes, getLocalDate, getLocalHour } from 'common/js/util'
   export default {
   	data() {
   		return {
   		  loading: false,
+  			changeTip: false,
   			races: [],
   		}
   	},
@@ -54,6 +57,7 @@
   	  __getRace() {
   	    this.loading = true
         getRace().then((res) => {
+  	      this.changeTip = false
           if(res.statusText === 'OK'){
             this.loading = false
             // 声明一个不受data监控的全局变量
@@ -90,11 +94,15 @@
             item: []
           }
         }
-  	  }
+  	  },
+      scroll(pos) {
+        this.changeTip = pos.y > 50
+      }
   	},
   	components: {
   	  Loading,
-  	  Scroll
+  	  Scroll,
+      Tip
   	}
   }
 </script>
@@ -104,7 +112,7 @@
 .race
   position: fixed
   width: 100%
-  top: 6rem
+  top: 0
   bottom: 0
   .race-content
     height: 100%
