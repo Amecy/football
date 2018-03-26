@@ -5,9 +5,9 @@
         <div v-if="ads.length" class="slider-wrapper" ref="sliderWrapper">
           <slider :interval="2000" :autoPlay="true" :loop="true">
             <div v-for="item in ads" :key="item.picUrl">
-              <!--<a :href="item.linkUrl" target="_blank">-->
+              <a :href="item.linkUrl" target="_blank">
                 <img :src="item.picUrl">
-              <!--</a>-->
+              </a>
             </div>
           </slider>
         </div>
@@ -28,7 +28,7 @@
         </ul>
       </div>
     </scroll>
-    <loading :wrap="true" v-show="loading"></loading>
+    <loading :alpha="true" v-show="loading"></loading>
   </div>
 </template>
 
@@ -60,8 +60,6 @@ import {getNews} from 'api/news'
   	},
   	created() {
       this._getNews(this.curPage)
-      setTimeout(() => {
-      },20)
   	},
   	methods: {
       reload() {

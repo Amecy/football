@@ -27,7 +27,7 @@
 		    	</router-link>
 		    </div>
 	    </div>
-	    <loading :wrap="true" v-if="loading"></loading>
+	    <loading :alpha="true" v-if="loading"></loading>
 	  </scroll>
   </div>
 </template>

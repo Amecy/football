@@ -1,40 +1,72 @@
 <template>
   <div class="detail">
-    <h3 v-html="innerContent"></h3>
-    <video controls autoplay src="https://dqdvideofile.qnssl.com/yFXAd9bp_5242141251.mp4?sign=50e4e40395ec153bbdb8baf3090cefb2&t=5ab0dd90"></video>
-    <video src="https://dqdvideofile.qnssl.com/Pbkn8fZd_8908611251.mp4?sign=e87f6dfd827965acfe700b58d33d5b25&t=5ab21e8b"></video>
+    <iframe :src="url" id="iframe" frameborder="0"></iframe>
+    <loading v-show="loading" :mask="true" :alpha="false"></loading>
   </div>
 </template>
 
 <script>
+  import Loading from 'components/loading/loading'
   import { getHTMLText } from 'common/js/util'
   import { getInfo } from 'api/video'
   export default {
     data() {
       return {
-        innerContent: '',
-        video: null,
+        loading: true,
+        url: ''
       }
     },
 
     mounted() {
       const { id } = this.$route.query
-      this.id = id
-      this.__getInfo(id)
+      this.url = `https://m.dongqiudi.com/article/${id}.html`
+      this.initContent()
     },
 
     methods: {
-      __getInfo(id) {
-        getInfo(id).then(res => {
-          const { body } = res.data.data
-          this.innerContent = body.replace('div', 'video').replace('div', 'video')
-          console.log(res.data, body.replace('div', 'video').replace('div', 'video'))
-        })
+      // 初始化内容，去除多余部分
+      initContent() {
+        this.loading = true
+        let iframe = document.querySelector('#iframe')
+        if (iframe.attachEvent) {
+          iframe.attachEvent('onload', this.removeExtra)
+        } else {
+          iframe.onload = this.removeExtra
+        }
+      },
+
+      // 去除多余部分
+      removeExtra() {
+        this.loading = false
+        let child = iframe.contentWindow.document
+        let extra = child.querySelector('.comm-container')
+        let hot = child.querySelector('.hot-video-list-container:last-child')
+        let ad = child.querySelector('.icon-red-btn')
+        let more = child.querySelector('.list-container')
+
+        extra.style.display = 'none'
+        hot.style.display = 'none'
+        ad.style.display = 'none'
+        more.addEventListener('click', this.initContent)
       }
+    },
+
+    components: {
+      Loading
     }
   }
+
+
 </script>
 
 <style lang="stylus" res="stylesheet/stylus">
-
+.detail
+  iframe
+    position: absolute
+    top: 2.3rem
+    left: 0
+    width: 100%
+    height: 100%
+  a
+    display none !important
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div :class="['loading', wrap ? 'bg_wrap': '']">
+	<div :class="['loading', mask?'mask':'', alpha?'alpha':'']">
     <!-- 跳跃的点 -->
     <div v-if="loadingType === 'dot'" class="wrap">
       <div class="loader">
@@ -38,7 +38,12 @@ export default {
       default: 'ring'
     },
     // 加载时是否包含背景
-    wrap: {
+    mask: {
+      type: Boolean,
+      default: false
+    },
+    // mask 是否半透明
+    alpha: {
       type: Boolean,
       default: false
     }
@@ -63,8 +68,10 @@ export default {
     display: flex
     align-items: center
     justify-content: center
-  .bg_wrap
-    background: rgba(255,255,255,0.3)
+  .mask
+    background: #fff
+  .alpha
+    background-color: rgba(255,255,255,0.3)
    img
      width: auto
      height: 8rem

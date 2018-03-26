@@ -16,7 +16,7 @@
           </router-link>
         </ul>
       </div>
-      <loading :wrap="true" v-show="loading"></loading>
+      <loading :alpha="true" v-show="loading"></loading>
     </scroll>
   </div>
 </template>
