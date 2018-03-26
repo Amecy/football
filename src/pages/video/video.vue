@@ -16,7 +16,7 @@
           </router-link>
         </ul>
       </div>
-      <loading v-show="!videos.length"></loading>
+      <loading :wrap="true" v-show="loading"></loading>
     </scroll>
   </div>
 </template>
@@ -28,6 +28,7 @@
   export default {
   	data() {
   		return {
+  		  loading: false,
         videos: [],
         url: '',
   		}
@@ -40,7 +41,6 @@
     },
     methods: {
   	  reload() {
-  	    this.videos = []
         this.url = ''
         this._getVideos()
       },

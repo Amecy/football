@@ -27,7 +27,7 @@
 		    	</router-link>
 		    </div>
 	    </div>
-	    <loading v-if="!races.length"></loading>
+	    <loading :wrap="true" v-if="loading"></loading>
 	  </scroll>
   </div>
 </template>
@@ -40,6 +40,7 @@
   export default {
   	data() {
   		return {
+  		  loading: false,
   			races: [],
   		}
   	},
@@ -48,12 +49,13 @@
   	},
   	methods: {
   	  reload() {
-  	    this.races = []
   	    this.__getRace()
       },
   	  __getRace() {
+  	    this.loading = true
         getRace().then((res) => {
           if(res.statusText === 'OK'){
+            this.loading = false
             // 声明一个不受data监控的全局变量
             this.obj = {}
             res.data.list.forEach((item,index) => {

@@ -1,46 +1,55 @@
 <template>
   <div class="news-detail">
-    <article v-if="info">
-      <h4>{{info.title}}</h4>
-      <p class="time">{{info.writer}} {{info.time}}</p>
-      <div v-html="info.body" class="content"></div>
-      <div class="source">消息参考来源：{{info.source}}</div>
-    </article>
-    <!-- 回复列表 -->
-    <div class="comments">热门回复</div>
-    <section v-if="comments.length > 0">
-      <div class="comment-item" v-for="o in comments" :key="o.id">
-        <div class="top">
-          <img v-if="o.avatar" :src="o.avatar" alt="avatar" class="avatar">
-          <div class="right">
-            <p>{{o.name}}</p>
-            <span>{{o.created_at}}</span>
+    <div v-if="info">
+      <article>
+        <h4>{{info.title}}</h4>
+        <p class="time">{{info.writer}} {{info.time}}</p>
+        <div v-html="info.body" class="content"></div>
+        <div class="source">消息参考来源：{{info.source}}</div>
+      </article>
+      <!-- 回复列表 -->
+      <div class="comments">热门回复</div>
+      <section v-if="comments.length > 0">
+        <div class="comment-item" v-for="o in comments" :key="o.id">
+          <div class="top">
+            <img v-if="o.avatar" :src="o.avatar" alt="avatar" class="avatar">
+            <div class="right">
+              <p>{{o.name}}</p>
+              <span>{{o.created_at}}</span>
+            </div>
+            <div class="up">{{o.up}}赞️</div>
           </div>
-          <div class="up">{{o.up}}赞️</div>
+          <p v-html="o.content"></p>
         </div>
-        <p v-html="o.content"></p>
+      </section>
+      <div class="empty" v-else>
+        暂无回复
       </div>
-    </section>
-    <div class="empty" v-else>
-      暂无回复
     </div>
+
+    <loading v-show="loading"></loading>
   </div>
 </template>
 
 <script>
-import { getInfo, getCommend } from 'api/news'
+  import Loading from 'components/loading/loading'
+  import { getInfo, getCommend } from 'api/news'
+
   export default {
   	data() {
   		return {
         info: '',
         comments: [],
+        loading: false,
         isSidebar: false
   		}
   	},
 
     mounted() {
+  	  this.loading = true
       let id = this.$route.query.id
       getInfo(id).then(res => {
+        this.loading = false
         const { data } = res.data
         const body = data.body.replace('data-src', 'src')
         this.info = { ...data, body }
@@ -74,6 +83,7 @@ import { getInfo, getCommend } from 'api/news'
     },
 
     components: {
+  	  Loading
     }
   }
 </script>

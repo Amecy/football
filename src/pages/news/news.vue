@@ -1,6 +1,6 @@
 <template>
   <div class="news">
-    <scroll ref="scroll" class="news-content" :data="newsList" :pullup="true" v-on:scrollToEnd="_getMoreData">
+    <scroll ref="scroll" class="news-content" :data="newsList" :pullup="true" :pulldown="true" v-on:pulldown="reload" v-on:scrollToEnd="_getMoreData">
       <div>
         <div v-if="ads.length" class="slider-wrapper" ref="sliderWrapper">
           <slider :interval="2000" :autoPlay="true" :loop="true">
@@ -13,7 +13,7 @@
         </div>
         <h2>最新资讯</h2>
         <ul class="title">
-          <router-link v-for="item in newsList" tag="li" :key="item.id" :id="item.id"
+          <router-link v-for="item in newsList" tag="li" :id="item.id"
                        :to="{ path: 'news/detail', query: {id: item.id}}">
             <div class="left">
               <img v-lazy="item.litpic">
@@ -28,7 +28,7 @@
         </ul>
       </div>
     </scroll>
-    <loading v-show="!newsList.length"></loading>
+    <loading :wrap="true" v-show="loading"></loading>
   </div>
 </template>
 
@@ -53,8 +53,9 @@ import {getNews} from 'api/news'
          linkUrl: 'https://github.com/Amecy',
          picUrl: require('common/images/4.jpg')
         }],
+        curPage: 1, // 当前页
         newsList: [],
-        curPage: 1 // 当前页
+        loading: false
   		}
   	},
   	created() {
@@ -63,12 +64,18 @@ import {getNews} from 'api/news'
       },20)
   	},
   	methods: {
+      reload() {
+        this.curPage = 1
+        this._getNews(1)
+      },
       _getMoreData() {
         this._getNews(this.curPage)
       },
       _getNews(page) {
+        this.loading = true
         getNews(page).then((res) => {
           if(res.statusText === 'OK') {
+            this.loading = false
             this.curPage += 1
             this.newsList = this.newsList.concat(res.data.list.articles)
           }
