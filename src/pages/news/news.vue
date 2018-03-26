@@ -16,7 +16,7 @@
         </div>
         <h2>最新资讯</h2>
         <ul class="title">
-          <router-link v-for="item in newsList" tag="li" :id="item.id"
+          <router-link v-for="(item, idx) in newsList" tag="li" :id="item.id" :key="idx"
                        :to="{ path: 'news/detail', query: {id: item.id}}">
             <div class="left">
               <img v-lazy="item.litpic">
