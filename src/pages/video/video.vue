@@ -45,7 +45,9 @@
         this._getVideos()
       },
       _getVideos() {
-  	    this.loading = true
+        if (!this.url) {
+          this.loading = true
+        }
         getVodeoList(this.url).then((res)=>{
           this.loading = false
           if("OK" === res.statusText) {

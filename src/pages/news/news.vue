@@ -70,7 +70,9 @@ import {getNews} from 'api/news'
         this._getNews(this.curPage)
       },
       _getNews(page) {
-        this.loading = true
+        if (1 === page) {
+          this.loading = true
+        }
         getNews(page).then((res) => {
           if(res.statusText === 'OK') {
             this.loading = false
