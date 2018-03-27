@@ -12,14 +12,16 @@
     <div v-if="data.gifCollection && data.gifCollection.length > 0" class="content">
       <h3>GIF合集</h3>
       <div class="wrap flex">
-        <div v-for="o in data.gifCollection" class="card">
+
+        <router-link v-for="(o, index) in data.gifCollection" class="card" tag="li" :key="index"
+                     :to="{ path: '/news/detail', query: {id: o.id}}">
           <img :src="o.thumb" alt="图片">
           <p>{{o.title}}</p>
           <div>
             <span>{{o.time}}'</span>
             <span>{{o.comments_total}}评论</span>
           </div>
-        </div>
+        </router-link>
       </div>
     </div>
     <div v-if="!data.article && !data.content && !(data.gifCollection && data.gifCollection.length>0)" class="empty">

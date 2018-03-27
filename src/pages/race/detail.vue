@@ -48,7 +48,7 @@
   	data() {
   		return {
         loading: true,
-        curType: 0,
+        curType: 3,
   			typeArray: ['situation', 'lineup', 'analysis', 'highlights'],
 
 

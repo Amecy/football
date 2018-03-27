@@ -1,12 +1,5 @@
 <template>
   <div class="situation">
-    <div v-if="data.events" class="content">
-      <!--<h3>事件</h3>-->
-      <!--<div class="team-wrap">-->
-        <!--<div>乌迪内斯</div>-->
-        <!--<div>萨索洛</div>-->
-      <!--</div>-->
-    </div>
     <div v-if="data.statistics" class="content">
       <h3>技术统计</h3>
       <ol class="statisitics">

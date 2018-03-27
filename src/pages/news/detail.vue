@@ -51,7 +51,7 @@
       getInfo(id).then(res => {
         this.loading = false
         const { data } = res.data
-        const body = data.body.replace('data-src', 'src')
+        const body = data.body.replace('orig-src', 'src')
         this.info = { ...data, body }
       })
       getCommend(id).then(res => {
@@ -73,7 +73,6 @@
               return o
             }
           })
-          console.log(comments)
           this.comments = comments
         }
       })
@@ -108,6 +107,8 @@
       border-bottom 1px solid $color-border
     .content
       margin-top: 1rem
+      strong
+        font-weight bolder
       h2
         font-size 1.1rem
         font-weight 500

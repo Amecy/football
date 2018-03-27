@@ -20,13 +20,7 @@
           ]
         }
       }
-    },
-  	date() {
-  	},
-  	mounted() {
-      setTimeout(() => {
-      },20)
-  	}
+    }
   }
 </script>
 
