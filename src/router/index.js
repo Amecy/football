@@ -15,7 +15,6 @@ const Video = () => import('pages/video/video.vue')
 const VideoDetail = () => import('pages/video/detail.vue')
 
 const router = new Router({
-  // routes配置最好加上name属性，用于参数传递
   routes: [
     {
       path: '/',
@@ -67,7 +66,7 @@ const router = new Router({
 // 路由拦截
 router.beforeEach((to, from, next) => {
   // 设置back标志，提供给 top 组件
-  window.back = (to.path.split('/').length > 2) ? true : false
+  window.back = to.path.split('/').length > 2
 
   // 没有匹配成功的路由，跳转到index页面,to.matched.length一级路由返回1，二级路由返回2，以此类推
   if (to.matched.length >= 1) {

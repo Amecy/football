@@ -144,7 +144,7 @@
     </div>
 
     <div v-else class="empty">
-      暂无阵容信息
+      暂无信息
     </div>
   </div>
 </template>

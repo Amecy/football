@@ -18,8 +18,7 @@
 		    			<p v-text="item.TVList"></p>
 		    			<h4 v-if="item.fs_B || item.fs_A">{{item.fs_A}} - {{item.fs_B}}</h4>
 		    			<h4 v-else>未开始</h4>
-              <small v-if="'Played' === item.status">已结束</small>
-              <small v-else-if="'Playing' === item.status" class="playing">比赛中</small>
+              <small v-if="'Playing' === item.status" class="playing">比赛中</small>
 		    		</div>
 		    		<div class="team">
 		    			<div><img v-lazy="item.team_B_logo" alt=""></div>

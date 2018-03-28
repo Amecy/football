@@ -150,13 +150,15 @@
       border-bottom 1px solid $color-border
       &:last-child
         border none
+      & > p
+        line-height: 1.4
       img
         height: 1.3rem
         vertical-align text-top
       .top
         display: flex
         position: relative
-        margin-bottom: 1rem
+        margin-bottom: .6rem
         .avatar
           display: inline-block
           width: 2.6rem
