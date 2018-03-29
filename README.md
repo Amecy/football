@@ -1,9 +1,9 @@
 # TXFootball
 
-> 天下足球
+> 天下足球 （以 gitlab 上面的项目为准）
 
 ### 文档：
-#### [点击跳转](https://gitlab.com/Amecy/football/blob/master/DOCUMENT.md)
+#### [点击跳转](https://github.com/Amecy/football/blob/master/DOCUMENT.md)
 
 ### 技术栈
 
