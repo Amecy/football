@@ -1,20 +1,34 @@
-# tx-football
+# TXFootball
 
 > 天下足球
 
-## 技术栈
+### 文档：
+#### [点击跳转](https://gitlab.com/Amecy/football/blob/master/DOCUMENT.md)
 
-前端 es6 vue2 vue-router2 axios better-scroll vue-lazyload stylus 
+### 技术栈
 
-后端 通过webpack 设置HTTP代理的方式请求api获取数据
+#### 前端 
+
+- es6 
+- vue2 
+- vue-router2 
+- axios 
+- better-scroll 
+- vue-lazyload 
+- stylus 
 
 
-### 安装与运行
+#### 后端：
+> 通过webpack 设置HTTP代理的方式请求api获取数据
+
+
+
+#### 安装与运行
 
 ```
-git clone https://github.com/Amecy/tx-football.git
+git clone https://gitlab.com/Amecy/football.git
 
-cd tx-football
+cd football
 
 npm install（建议使用淘宝镜像cnpm）
 
@@ -29,5 +43,6 @@ npm run build 项目打包
 
 cd dist
 
-node server.js  访问 http://localhost:8060（确保已经安装node环境）
+node server.js  访问 http://localhost:8060
+（确保已经安装node环境：npm i http-server -g ）
 
